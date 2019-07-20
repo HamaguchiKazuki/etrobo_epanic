@@ -6,6 +6,7 @@
  *  Copyright (c) 2015 Embedded Technology Software Design Robot Contest
  *****************************************************************************/
 
+//バランスを取りながら走行する
 #include "BalancingWalker.h"
 
 // 定数宣言
@@ -28,7 +29,7 @@ BalancingWalker::BalancingWalker(const ev3api::GyroSensor& gyroSensor,
       mLeftWheel(leftWheel),
       mRightWheel(rightWheel),
       mBalancer(balancer),
-      mForward(LOW),
+      mForward(0),
       mTurn(LOW) {
 }
 
@@ -66,7 +67,7 @@ void BalancingWalker::init() {
 
 /**
  * PWM値を設定する
- * @param forward 前進値
+ * @param forward 前進値 #pwm
  * @param turn    旋回値
  */
 void BalancingWalker::setCommand(int forward, int turn) {

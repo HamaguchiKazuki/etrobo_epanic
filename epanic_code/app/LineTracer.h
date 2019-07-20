@@ -24,7 +24,7 @@ private:
     BalancingWalker* mBalancingWalker;
     bool mIsInitialized;
 
-    int calcDirection(bool isOnLine);
+    int calcDirection(int diff);
 };
 
 #endif  // EV3_APP_LINETRACER_H_

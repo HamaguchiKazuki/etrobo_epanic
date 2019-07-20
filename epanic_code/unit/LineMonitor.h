@@ -17,6 +17,7 @@ public:
     explicit LineMonitor(const ev3api::ColorSensor& colorSensor);
 
     bool isOnLine() const;
+    int diff() const;
     void setThreshold(int8_t threshold);
 
 private:

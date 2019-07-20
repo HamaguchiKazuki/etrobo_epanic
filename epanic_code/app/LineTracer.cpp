@@ -29,10 +29,10 @@ void LineTracer::run() {
         mIsInitialized = true;
     }
 
-    bool isOnLine = mLineMonitor->isOnLine();
-
+    // bool isOnLine = mLineMonitor->isOnLine();
+    int diff = mLineMonitor->diff();
     // 走行体の向きを計算する
-    int direction = calcDirection(isOnLine);
+    int direction = calcDirection(diff);
 
     mBalancingWalker->setCommand(BalancingWalker::LOW, direction);
 
@@ -42,16 +42,13 @@ void LineTracer::run() {
 
 /**
  * 走行体の向きを計算する
- * @param isOnLine true:ライン上/false:ライン外
- * @retval 30  ライン上にある場合(右旋回指示)
- * @retval -30 ライン外にある場合(左旋回指示)
+ * @param diff float:ライン上にいる割合を計算して方向を決める
+ * チューニングパラメータ Kp, bias
+ * @retval direction  ライン上の比例制御値
  */
-int LineTracer::calcDirection(bool isOnLine) {
-    if (isOnLine) {
-        // ライン上にある場合
-        return BalancingWalker::LOW;
-    } else {
-        // ライン外にある場合
-        return -BalancingWalker::LOW;
-    }
+int LineTracer::calcDirection(int diff) {
+    const float Kp = 0.83;        // ライントレースの機敏さ 1:最大 
+    const int bias = 0;            //　速度限界上昇：pi制御
+
+    return Kp * diff + bias;
 }
