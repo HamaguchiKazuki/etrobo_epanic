@@ -82,7 +82,7 @@ int8_t Balancer::getPwmLeft() {
  * 直近のPWM値に応じてエンコーダー値にバックラッシュ分の値を追加する
  * @param pwm モーターPWM値 ※前回の出力値
  * @param enc モーターエンコーダー値
- * @return バックラッシュを追加したモーターエンコーダー値
+ * @return バックラッシュを追加したモーターエンコーダー値 pwm
  */
 int Balancer::cancelBacklash(int8_t pwm, int enc) {
     const int kBacklashHalf = 4;  // バックラッシュの半分[deg]

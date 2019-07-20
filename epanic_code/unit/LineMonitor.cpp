@@ -9,7 +9,7 @@
 #include "LineMonitor.h"
 
 // 定数宣言
-const int8_t LineMonitor::INITIAL_THRESHOLD = 20;  // 黒色の光センサ値
+const int8_t LineMonitor::INITIAL_THRESHOLD = 10;  // 黒色の光センサ値
 
 /**
  * コンストラクタ
@@ -20,20 +20,9 @@ LineMonitor::LineMonitor(const ev3api::ColorSensor& colorSensor)
       mThreshold(INITIAL_THRESHOLD) {
 }
 
-/**
- * ライン上か否かを判定する
- * @retval true  ライン上
- * @retval false ライン外
- */
-bool LineMonitor::isOnLine() const {
-    // 光センサからの取得値を見て
-    // 黒以上であれば「true」を、
-    // そうでなければ「false」を返す
-    if (mColorSensor.getBrightness() >= mThreshold) {
-        return true;
-    } else {
-        return false;
-    }
+//      光センサからの取得値を見て差を計算する
+int LineMonitor::diff() const{
+    return mColorSensor.getBrightness() - mThreshold;
 }
 
 /**
